@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import vk.NPlusOne.practice.dao.PersonDAO;
 import vk.NPlusOne.practice.models.Person;
 import vk.NPlusOne.practice.services.PeopleService;
 
@@ -17,14 +18,18 @@ public class PeopleController {
 
     private final PeopleService peopleService;
 
+    private final PersonDAO personDAO;
+
     @Autowired
-    public PeopleController(PeopleService peopleService) {
+    public PeopleController(PeopleService peopleService, PersonDAO personDAO) {
         this.peopleService = peopleService;
+        this.personDAO = personDAO;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("people", peopleService.findAll());
+        //model.addAttribute("people", peopleService.findAll());
+        personDAO.testNPlusOne();
         return "people/index";
     }
 
